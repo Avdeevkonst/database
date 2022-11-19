@@ -23,4 +23,5 @@ urlpatterns = [
     path('', include('base.urls')),
 ]
 
+
 handler404 = pageNotFound
