@@ -1,16 +1,17 @@
 from datetime import *
-from django.http import HttpResponse, HttpResponseNotFound, Http404
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, redirect
+from .models import *
+title = 'AvdBASE'
+possibility = {"Регистрация", "Вход", "Информация о сайте", "Обратная связь"}
 
 
 def start(request):
-    return HttpResponse("<h1>Начальная страница сайта.</h1>")
+    return render(request, 'base/index.html', {'possibility': possibility, 'title': title})
 
 
-def info(request, info_s):
-    if request.GET:
-        print(request.GET)
-    return HttpResponse(f"<h1>Информационная страница сайта.</h1><p>{info_s}</p>")
+def info(request):
+    return render(request, 'base/info.html', {'possibility': possibility, 'title': title})
 
 
 def archive(request, year):

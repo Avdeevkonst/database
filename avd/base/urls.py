@@ -3,7 +3,7 @@ from django.urls import path, re_path
 from .views import *
 
 urlpatterns = [
-    path('', start),
-    path('info/<slug:info_s>/', info),
+    path('', start, name='home'),
+    path('info', info, name='info'),
     re_path(r'^archive/(?P<year>[0-9]{4})/', archive),
 ]
