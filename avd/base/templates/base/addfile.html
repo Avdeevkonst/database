@@ -1,0 +1,10 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+    <form action="{% url 'addfile' %}" method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Загрузить файл</button>
+    </form>
+{% endblock %}

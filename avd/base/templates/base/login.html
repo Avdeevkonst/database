@@ -1,6 +1,20 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<h1>{{ title }}</h1>
-<p>Введите логин и пароль</p>
+    <h1>{{ title }}</h1>
+  <div class="input-container">
+    <i class="fa fa-envelope icon"></i>
+      <label>
+          <input class="input-field" type="text" placeholder="Login" name="email">
+      </label>
+  </div>
+
+  <div class="input-container">
+    <i class="fa fa-key icon"></i>
+      <label>
+          <input class="input-field" type="password" placeholder="Password" name="psw">
+      </label>
+  </div>
+
+  <button type="submit" class="btn"><a href="user_account.html"> Войти</a></button>
 {% endblock %}

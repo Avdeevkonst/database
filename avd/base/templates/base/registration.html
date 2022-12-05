@@ -1,6 +1,28 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<h1>{{ title }}</h1>
-<p>Регистрация</p>
+    <h1>{{ title }}</h1>
+
+  <h2>Register Form</h2>
+  <div class="input-container">
+    <i class="fa fa-first_name icon"></i>
+    <input class="input-field" type="text" placeholder="First name" name="first">
+  </div>
+
+    <div class="input-container">
+    <i class="fa fa-second_name icon"></i>
+    <input class="input-field" type="text" placeholder="Second name" name="second">
+  </div>
+
+  <div class="input-container">
+    <i class="fa fa-envelope icon"></i>
+    <input class="input-field" type="text" placeholder="Email" name="email">
+  </div>
+
+  <div class="input-container">
+    <i class="fa fa-key icon"></i>
+    <input class="input-field" type="password" placeholder="Password" name="psw">
+  </div>
+
+  <button type="submit" class="btn"><a href="user_account.html"> Register</a></button>
 {% endblock %}
