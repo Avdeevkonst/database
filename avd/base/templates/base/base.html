@@ -10,19 +10,14 @@
 <body>
 <table class="table-page" border=0 cellpadding="0" cellspacing="0">
 <tr><td valign=top>
+
 {% block content %}
 {% endblock %}
 {% block mainmenu %}
-        <div class="header">
-            <ul id="mainmenu" class="mainmenu">
-            <li class="logo"><a href="{% url 'home' %}"><div class="logo"></div></a></li>
+
 {% for p in possibility %}
-            <li><a href="{% url p.url_name %}">{{ p.title }}</a> </li>
+            <li><a href="{% url p.url_name %}">{{ p.title }}</a></li>
 {% endfor %}
-        </ul>
-        <div class="clear"></div>
 {% endblock mainmenu %}
-
-
 </body>
 </html>

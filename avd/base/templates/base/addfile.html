@@ -1,10 +1,12 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-<h1>{{ title }}</h1>
-    <form action="{% url 'addfile' %}" method="post">
+    <form action="{% url 'addfile' %}" method="post" enctype="multipart/form-data">
     {% csrf_token %}
+
+        <div class="form-error">{{ form.non_field_errors }}</div>
     {{ form.as_p }}
     <button type="submit">Загрузить файл</button>
+    <p><button type="submit">Начальная страница</button>
     </form>
 {% endblock %}

@@ -1,9 +1,7 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-    <h1>{{ title }}</h1>
-
-  <h2>Register Form</h2>
+    <title>{{ title }}</title>
   <div class="input-container">
     <i class="fa fa-first_name icon"></i>
     <input class="input-field" type="text" placeholder="First name" name="first">
@@ -24,5 +22,5 @@
     <input class="input-field" type="password" placeholder="Password" name="psw">
   </div>
 
-  <button type="submit" class="btn"><a href="user_account.html"> Register</a></button>
+  <button type="submit" class="btn"><a href="user"> Register</a></button>
 {% endblock %}

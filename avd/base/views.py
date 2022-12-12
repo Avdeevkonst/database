@@ -1,18 +1,15 @@
 from django.contrib.auth.forms import UserCreationForm
 from .models import *
-from django.http import HttpResponse, HttpResponseNotFound
+from django.http import HttpResponseNotFound
 from django.shortcuts import render, redirect, get_object_or_404
-from django.views.generic import CreateView, ListView, DetailView
-from django.urls import reverse_lazy
 from .forms import *
+from django.views.generic import ListView
 
 title = 'AvdBASE'
-possibility = [
-    {'title': "Регистрация", 'url_name': 'registration'},
-    {'title': "Вход", 'url_name': 'login'},
-    {'title': "Информация о сайте", 'url_name': 'info'},
-    {'title': "Загрузить файл", 'url_name': 'addfile'},
-]
+possibility = [{'title': "Регистрация", 'url_name': 'registration'},
+               {'title': "Вход", 'url_name': 'login'},
+               {'title': "Информация о сайте", 'url_name': 'info'},
+               {'title': "Загрузить файл", 'url_name': 'addfile'}, ]
 
 
 def start(request):
@@ -23,13 +20,15 @@ def start(request):
 
 def addfile(request):
     if request.method == 'POST':
-        form = AddFile(request.POST)
+        form = AddFile(request.POST, request.FILES)
         if form.is_valid():
-            print(form.cleaned_data)
+            form.save()
+            return redirect('home')
     else:
-        form = AddFile
+        form = AddFile()
     context = {'form': form, 'title': title,
-               'Add documents': "Загрузить файл"}
+               'Add documents': "Загрузить файл",
+               'start_page': "Начальная страница"}
     return render(request, 'base/addfile.html', context=context)
 
 
@@ -40,15 +39,25 @@ def info(request):
 
 
 def registration(request):
-    return render(request, 'base/registration.html')
+    if request.method == 'POST':
+        form = Authorization(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('base/user.html')
+    else:
+        form = Authorization()
+    context = {'form': form, 'title': title,
+               'Add documents': "Загрузить файл",
+               'start_page': "Начальная страница"}
+    return render(request, 'base/registration.html', context=context)
 
 
 def login(request):
     return render(request, 'base/login.html')
 
 
-def user_account(request):
-    return render(request, 'base/user_account.html')
+def user(request):
+    return render(request, 'base/user.html')
 
 
 def pageNotFound(request, exception):
