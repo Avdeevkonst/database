@@ -10,14 +10,19 @@
 <body>
 <table class="table-page" border=0 cellpadding="0" cellspacing="0">
 <tr><td valign=top>
-
+    {% block mainmenu %}
+        <h1><a href="{% url 'home' %}">{{ title }}</a></h1>
+        {% for p in possibility %}
+    <li><a href="{% url p.url_name %}">{{ p.title }}</a></li>
+            {% endfor %}
+        {% if request.user.is_authenticated %}
+        <li class="last"><a href="{% url 'logout' %}">Выйти</a></li>
+        {% else %}
+        <li class="last"><a href="{% url 'login' %}">Войти</a></li>
+        <li class="last"><a href="{% url 'registration' %}">Регистрация</a></li>
+        {% endif %}
+{% endblock mainmenu %}
 {% block content %}
 {% endblock %}
-{% block mainmenu %}
-
-{% for p in possibility %}
-            <li><a href="{% url p.url_name %}">{{ p.title }}</a></li>
-{% endfor %}
-{% endblock mainmenu %}
 </body>
 </html>

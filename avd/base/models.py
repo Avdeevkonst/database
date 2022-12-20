@@ -1,9 +1,8 @@
 from django.db import models
-from django.urls import reverse
-from django.core import validators
+from django.shortcuts import reverse
 
 
-class User(models.Model):
+class UserInfo(models.Model):
     first_name = models.CharField(max_length=15, verbose_name='Имя')
     second_name = models.CharField(max_length=20, verbose_name='Фамилия')
     email = models.EmailField(max_length=30, verbose_name='Почта')
@@ -16,15 +15,25 @@ class User(models.Model):
     def __str__(self):
         return self.first_name
 
+    def get_absolute_url(self):
+        return reverse('home', args=[str(self.pk)])
+
     class Meta:
         verbose_name = 'Зарегистрированные пользователи'
         verbose_name_plural = 'Зарегистрированные пользователи'
+        ordering = ['first_name', 'second_name', 'email']
 
 
 class File(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, verbose_name='Имя файла')
     time_load = models.DateTimeField(auto_now_add=True, verbose_name='Дата загрузки')
-    load_file = models.FileField(verbose_name='Загрузить файл')
+    load_file = models.FileField(upload_to='files/%Y/%m/%d/', verbose_name='Загрузить файл')
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('home', args=[str(self.name)])
+
+    class Meta:
+        ordering = ['name']

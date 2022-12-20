@@ -6,7 +6,8 @@
 
         <div class="form-error">{{ form.non_field_errors }}</div>
     {{ form.as_p }}
-    <button type="submit">Загрузить файл</button>
-    <p><button type="submit">Начальная страница</button>
-    </form>
+    <p><button type="submit">Загрузить файл</button>
+        </form>
+    <p><button type="submit"><a href="{% url 'home' %}">Начальная страница</a></button>
+
 {% endblock %}

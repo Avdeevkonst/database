@@ -1,3 +1,4 @@
+{% extends 'base/base.html' %}
 {% for c in paid_user %}
     {% if c.pk == paid_selected %}
         <li class="selected">{{ c.name }}</li>

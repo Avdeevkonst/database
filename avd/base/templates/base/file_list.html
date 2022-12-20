@@ -1,0 +1,12 @@
+{% extends "base/base.html" %}
+
+{% block content %}
+    {% if file_list %}
+    <ul>
+      {% for file in file_list %}
+      {% endfor %}
+    </ul>
+    {% else %}
+      <p>Вы не добавили не один файл</p>
+    {% endif %}
+{% endblock %}

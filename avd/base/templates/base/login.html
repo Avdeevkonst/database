@@ -1,19 +1,15 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-  <div class="input-container">
-    <i class="fa fa-envelope icon"></i>
-      <label>
-          <input class="input-field" type="text" placeholder="Login" name="email">
-      </label>
-  </div>
+<form method="post">
+    {% csrf_token %}
 
-  <div class="input-container">
-    <i class="fa fa-key icon"></i>
-      <label>
-          <input class="input-field" type="password" placeholder="Password" name="psw">
-      </label>
-  </div>
+<div class="form-error">{{ form.non_field_errors }}</div>
 
-  <button type="submit" class="btn"><a href="user"> Войти</a></button>
+{% for f in form %}
+    <p><label class="form-label" for="{{ f.id_for_label }}">{{ f.label }}: </label>{{ f }} </p>
+    <div class="form-errors">{{ f.errors }}</div>
+    {% endfor %}
+    <button type="submit">Войти</button>
+</form>
 {% endblock %}

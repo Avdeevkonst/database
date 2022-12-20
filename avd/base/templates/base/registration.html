@@ -1,26 +1,15 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-    <title>{{ title }}</title>
-  <div class="input-container">
-    <i class="fa fa-first_name icon"></i>
-    <input class="input-field" type="text" placeholder="First name" name="first">
-  </div>
+<form method="post">
+    {% csrf_token %}
 
-    <div class="input-container">
-    <i class="fa fa-second_name icon"></i>
-    <input class="input-field" type="text" placeholder="Second name" name="second">
-  </div>
+{% for f in form %}
+<p><label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+<div class="form-error">{{ f.errors }}</div>
+{% endfor %}
 
-  <div class="input-container">
-    <i class="fa fa-envelope icon"></i>
-    <input class="input-field" type="text" placeholder="Email" name="email">
-  </div>
+    <button type="submit">Регистрация</button>
+</form>
 
-  <div class="input-container">
-    <i class="fa fa-key icon"></i>
-    <input class="input-field" type="password" placeholder="Password" name="psw">
-  </div>
-
-  <button type="submit" class="btn"><a href="user"> Register</a></button>
 {% endblock %}

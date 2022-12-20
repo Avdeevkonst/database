@@ -12,4 +12,4 @@ class BaseAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ("second_name",)}
 
 
-admin.site.register(User, BaseAdmin)
+admin.site.register(UserInfo, BaseAdmin)
