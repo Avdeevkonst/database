@@ -2,9 +2,8 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.views import LoginView
 from django.urls import reverse_lazy
-from .models import *
-from django.http import HttpResponseNotFound
-from django.shortcuts import render, redirect, get_object_or_404
+from django.http import HttpResponseNotFound, HttpResponseRedirect
+from django.shortcuts import render, redirect
 from .forms import *
 from django.views.generic import ListView, CreateView
 from .utils import *
@@ -25,7 +24,7 @@ def start(request):
 class AddFile(LoginRequiredMixin, DataMixin, CreateView):
     form_class = AddFileForm
     template_name = 'base/addfile.html'
-    success_url = reverse_lazy('addfile')
+    success_url = reverse_lazy('file')
     login_url = reverse_lazy('login')
 
     def get_context_data(self, *, object_list=None, **kwargs):
@@ -33,19 +32,9 @@ class AddFile(LoginRequiredMixin, DataMixin, CreateView):
         c_def = self.get_user_context(**kwargs)
         return dict(list(context.items()) + list(c_def.items()))
 
-
-# def addfile(request):
-#    if request.method == 'POST':
-#        form = AddFile(request.POST, request.FILES)
-#        if form.is_valid():
-#            form.save()
-#            return redirect('home')
-#    else:
-#        form = AddFile()
-#    context = {'form': form, 'title': title,
-#               'Add documents': "Загрузить файл",
-#               'start_page': "Начальная страница"}
-#    return render(request, 'base/addfile.html', context=context)
+    def form_valid(self, form):
+        form.save()
+        return super(AddFile, self).form_valid(form)
 
 
 def info(request):
@@ -73,6 +62,10 @@ class RegisterUser(DataMixin, CreateView):
     template_name = 'base/registration.html'
     success_url = reverse_lazy('login')
 
+    def form_valid(self, form):
+        form.save()
+        return super(RegisterUser, self).form_valid(form)
+
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         c_def = self.get_user_context(**kwargs)
@@ -82,11 +75,6 @@ class RegisterUser(DataMixin, CreateView):
 class LoginUser(DataMixin, LoginView):
     form_class = LoginForm
     template_name = 'base/login.html'
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        c_def = self.get_user_context(**kwargs)
-        return dict(list(context.items()) + list(c_def.items()))
 
     def get_success_url(self):
         return reverse_lazy('user')

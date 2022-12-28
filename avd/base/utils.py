@@ -9,12 +9,9 @@ possibility = [{'title': "Информация о сайте", 'url_name': 'info
 
 
 class DataMixin:
-    def __init__(self):
-        self.request = None
-
     def get_user_context(self, **kwargs):
         context = kwargs
-        files = File.objects.all()
+        files = UserInfo.objects.all()
         context['files'] = files
         context['title'] = title
         context['possibility'] = possibility

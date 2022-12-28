@@ -27,13 +27,10 @@ class UserInfo(models.Model):
 class File(models.Model):
     name = models.CharField(max_length=30, verbose_name='Имя файла')
     time_load = models.DateTimeField(auto_now_add=True, verbose_name='Дата загрузки')
-    load_file = models.FileField(upload_to='files/%Y/%m/%d/', verbose_name='Загрузить файл')
+    load_file = models.FileField(upload_to='files/%Y/%m/', verbose_name='Загрузить файл')
 
     def __str__(self):
         return self.name
-
-    def get_absolute_url(self):
-        return reverse('home', args=[str(self.name)])
 
     class Meta:
         ordering = ['name']
