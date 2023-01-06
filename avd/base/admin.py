@@ -12,4 +12,15 @@ class BaseAdmin(admin.ModelAdmin):
     prepopulated_fields = {'slug': ("second_name",)}
 
 
+class FileAdmin(admin.ModelAdmin):
+    list_display = ('id', 'name', 'time_load', 'load_file')
+    list_display_links = ('id', 'name')
+    search_fields = ('name',)
+    list_filter = ('name', 'load_file')
+
+
 admin.site.register(UserInfo, BaseAdmin)
+admin.site.register(File, FileAdmin)
+
+admin.site.site_title = 'Админ-панель AvdBASE'
+admin.site.site_header = 'Админ-панель AvdBASE'

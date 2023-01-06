@@ -1,5 +1,8 @@
 from django.db import models
 from django.shortcuts import reverse
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
 
 
 class UserInfo(models.Model):
@@ -34,3 +37,17 @@ class File(models.Model):
 
     class Meta:
         ordering = ['name']
+        verbose_name = 'Загруженные файлы'
+        verbose_name_plural = 'Загруженные файлы'
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email_confirmed = models.BooleanField(default=False)
+
+
+@receiver(post_save, sender=User)
+def update_user_profile(sender, instance, created, **kwargs):
+    if created:
+        Profile.objects.create(user=instance)
+        instance.profile.save()
